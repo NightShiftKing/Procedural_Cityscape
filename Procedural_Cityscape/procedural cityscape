@@ -1,0 +1,48 @@
+import pygame
+import random
+
+pygame.init()
+screen = pygame.display.set_mode((800,600))
+pygame.display.set_caption("Procedural Cityscape")
+
+# Function to draw a building with random features
+def draw_building():
+    xpos = random.randrange(-100, 800)
+    ypos = random.randrange(0, 800)
+    width = random.randrange(100, 200)
+    color = random.randrange(50, 200)
+    pygame.draw.rect(screen, (color, color, color), (xpos, ypos, width, 800)) #building
+    pygame.draw.rect(screen, (0,0,0), (xpos, ypos, width, 800), 2) #black outline
+    for i in range (xpos+10, xpos + width - 20, 30):
+        for j in range(ypos + 10, ypos + 600, 60):
+            pygame.draw.rect(screen, (200, 200, 50), (i, j, 20, 40))#windows
+
+def draw_snow():
+    xpos = random.randrange(-100, 800)
+    ypos = random.randrange(0, 800)
+    width = 3
+    pygame.draw.circle(screen, (255, 255, 255), (xpos, ypos), width)
+
+def draw_car():
+       xpos = random.randrange(0, 800)
+       ypos = 535
+       pygame.draw.rect(screen, (128, 128, 128,), (xpos, ypos, 100, 50) )
+       pygame.draw.circle(screen, (54, 54, 58), (xpos + 5, ypos + 50), 20) 
+       pygame.draw.circle(screen, (54, 54, 58), (xpos + 95, ypos + 50), 20)
+       pygame.draw.polygon(screen, (167, 199, 203), ((xpos, ypos), (xpos + 100, ypos), (xpos + 80, ypos - 25)))
+
+
+screen.fill((20, 20, 100))
+
+for i in range(20):
+    draw_building()
+
+for k in range(3):
+    draw_car()
+    for j in range(300):
+        draw_snow() 
+
+pygame.display.flip()
+pygame.time.wait(100000)
+pygame.quit() 
+
